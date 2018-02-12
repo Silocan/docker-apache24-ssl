@@ -12,10 +12,9 @@ VOLUME /var/www/html
 # RUN a2enmod rewrite;
 
 # INSTALL LETS ENCRYPT
-RUN \
-	apt install sudo && echo 'deb http://ftp.debian.org/debian jessie-backports main' | sudo tee /etc/apt/sources.list.d/backports.list \
-	 && sudo apt-get update \
-	 && sudo apt-get install -y python-certbot-apache
+RUN echo 'deb http://ftp.debian.org/debian jessie-backports main' | tee /etc/apt/sources.list.d/backports.list \
+	 && apt-get update \
+	 && apt-get install -y python-certbot-apache
 
 # GENERATE CERTIFICATS
 
