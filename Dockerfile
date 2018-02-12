@@ -1,4 +1,4 @@
-FROM httpd:2.4.29-alpine
+FROM httpd:latest
 
 # COPY ./conf/httpd.conf /usr/local/apache2/conf/httpd.conf
 
