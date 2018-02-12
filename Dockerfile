@@ -4,10 +4,11 @@ FROM httpd:2.4.29-alpine
 
 # MOUNT VHOSTS FOLDER
 
+
 # ENABLE REWRITE, PROXY, ...
 
 # INSTALL LETS ENCRYPT
-RUN sudo add-apt-repository ppa:certbot/certbot && sudo apt-get update && sudo apt-get install python-certbot-apache
+RUN add-apt-repository ppa:certbot/certbot && apt-get update && apt-get install -y python-certbot-apache
 
 # GENERATE CERTIFICATS
 
