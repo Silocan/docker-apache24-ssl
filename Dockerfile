@@ -9,7 +9,7 @@ VOLUME /etc/apache2/sites-enabled
 VOLUME /var/www/html
 
 # ENABLE REWRITE, PROXY, ...
-RUN a2enmod rewrite;
+# RUN a2enmod rewrite;
 
 # INSTALL LETS ENCRYPT
 RUN \
