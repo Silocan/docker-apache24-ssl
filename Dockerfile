@@ -14,7 +14,7 @@ VOLUME /var/www/html
 # INSTALL LETS ENCRYPT
 RUN echo 'deb http://ftp.debian.org/debian jessie-backports main' | tee /etc/apt/sources.list.d/backports.list \
 	 && apt-get update \
-	 && apt-get install -y python-certbot-apache
+	 && apt-get install -y certbot python-certbot-apache
 
 # GENERATE CERTIFICATS
 
