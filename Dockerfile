@@ -1,6 +1,19 @@
-FROM httpd:latest
+FROM debian:stretch
+RUN echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
+RUN apt update
 
-# COPY ./conf/httpd.conf /usr/local/apache2/conf/httpd.conf
+# ENABLE REWRITE, PROXY, ...
+# RUN a2enmod rewrite;
+
+# INSTALL LETS ENCRYPT
+RUN	apt-get install -q -y curl apache2 && \
+    apt-get install -q -y python-certbot-apache && \
+	apt-get clean
+# GENERATE CERTIFICATS
+
+RUN a2enmod proxy rewrite && service apache2 restart
+
+COPY ./conf/apache2.conf /etc/apache2/apache2.conf
 
 # MOUNT VHOSTS FOLDER
 VOLUME /etc/apache2/sites-enabled
@@ -8,17 +21,4 @@ VOLUME /etc/apache2/sites-enabled
 # MOUNT WWW FOLDER
 VOLUME /var/www/html
 
-# ENABLE REWRITE, PROXY, ...
-# RUN a2enmod rewrite;
-
-# INSTALL LETS ENCRYPT
-RUN echo 'deb http://ftp.debian.org/debian jessie-backports main' | tee /etc/apt/sources.list.d/backports.list \
-	 && apt-get update \
-	 && apt-get install -y certbot python-certbot-apache
-
-# GENERATE CERTIFICATS
-
-EXPOSE 80
-EXPOSE 443
-
-CMD ["httpd-foreground"]
+CMD ["tail","-f", "/var/log/apache2/access.log"]
